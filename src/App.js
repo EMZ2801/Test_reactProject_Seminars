@@ -16,8 +16,20 @@ function App() {
     { id: 3, title: "Aa", body: "Description 2" },
   ]);
 
-  const [selectedSort, setSelectedSort] = useState("");
-  const createPost = (newPost) => setPosts([...posts, newPost]);
+  const [selectedSort, setSelectedSort] = useState("")
+  const [searchQuery, setSearchquery] = useState("")
+
+  function getSortedPosts() {
+    console.log ('отработала функция')
+    if (selectedSort) {
+      return [...posts].sort((a,b)=>a[selectedSort].localeCompare(b[selectedSort]))
+    }
+    return posts;
+  }
+
+  const sortedPosts = getSortedPosts()
+
+  const createPost = (newPost) => setPosts([...posts, newPost])
 
   //получаем post из дочернего компонента
   const removePost = (post) => {
@@ -25,17 +37,23 @@ function App() {
   };
 
   const sortPosts = (sort) => {
-    setSelectedSort(sort);
-    setPosts([...posts].sort((a,b)=>a[sort].localeCompare(b[sort])))
+    setSelectedSort(sort)
   };
 
   return (
     <div className="App">
       <PostForm create={createPost} />
-      <hr style={{ margin: "15px" }}></hr>
+      <hr style={{ margin: "15px" }} />
       <div>
+        <MyInput
+          value={searchQuery}
+          onChange={e => setSearchquery(e.target.value)}
+          placeholder="Поиск">
+
+          </MyInput>
+
         <MySelect
-          value={setSelectedSort}
+          value={selectedSort}
           onChange={sortPosts}
           defaultValue="Сортировка"
           options={[
@@ -46,7 +64,7 @@ function App() {
       </div>
 
       {posts.length !== 0 ? (
-        <PostList remove={removePost} posts={posts} title="Посты про JS" />
+        <PostList remove={removePost} posts={sortedPosts} title="Посты про JS" />
       ) : (
         <h1 style={{ textAlign: "center" }}>Посты не найдены!</h1>
       )}
