@@ -16,20 +16,22 @@ function App() {
     { id: 3, title: "Aa", body: "Description 2" },
   ]);
 
-  const [selectedSort, setSelectedSort] = useState("")
-  const [searchQuery, setSearchquery] = useState("")
+  const [selectedSort, setSelectedSort] = useState("");
+  const [searchQuery, setSearchquery] = useState("");
 
   function getSortedPosts() {
-    console.log ('отработала функция')
+    console.log("отработала функция");
     if (selectedSort) {
-      return [...posts].sort((a,b)=>a[selectedSort].localeCompare(b[selectedSort]))
+      return [...posts].sort((a, b) =>
+        a[selectedSort].localeCompare(b[selectedSort])
+      );
     }
     return posts;
   }
 
-  const sortedPosts = getSortedPosts()
+  const sortedPosts = getSortedPosts();
 
-  const createPost = (newPost) => setPosts([...posts, newPost])
+  const createPost = (newPost) => setPosts([...posts, newPost]);
 
   //получаем post из дочернего компонента
   const removePost = (post) => {
@@ -37,7 +39,7 @@ function App() {
   };
 
   const sortPosts = (sort) => {
-    setSelectedSort(sort)
+    setSelectedSort(sort);
   };
 
   return (
@@ -47,10 +49,9 @@ function App() {
       <div>
         <MyInput
           value={searchQuery}
-          onChange={e => setSearchquery(e.target.value)}
-          placeholder="Поиск">
-
-          </MyInput>
+          onChange={(e) => setSearchquery(e.target.value)}
+          placeholder="Поиск"
+        ></MyInput>
 
         <MySelect
           value={selectedSort}
@@ -64,7 +65,11 @@ function App() {
       </div>
 
       {posts.length !== 0 ? (
-        <PostList remove={removePost} posts={sortedPosts} title="Посты про JS" />
+        <PostList
+          remove={removePost}
+          posts={sortedPosts}
+          title="Посты про JS"
+        />
       ) : (
         <h1 style={{ textAlign: "center" }}>Посты не найдены!</h1>
       )}
