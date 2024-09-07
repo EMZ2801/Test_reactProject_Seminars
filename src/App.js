@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import Counter from "./components/counter";
 import ClassCounter from "./components/ClassCounter";
 import "./styles/App.css";
@@ -19,7 +19,8 @@ function App() {
   const [selectedSort, setSelectedSort] = useState("");
   const [searchQuery, setSearchquery] = useState("");
 
-  function getSortedPosts() {
+
+  const sortedPosts = useMemo(()=> {
     console.log("отработала функция");
     if (selectedSort) {
       return [...posts].sort((a, b) =>
@@ -27,9 +28,17 @@ function App() {
       );
     }
     return posts;
-  }
+  }, [selectedSort, posts]
+  )
 
-  const sortedPosts = getSortedPosts();
+  const sortedAndSearcedPosts = useMemo (() => { 
+    return sortedPosts.filter(post => post.title.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()))
+    console.log("searchQuery:", searchQuery);
+console.log("sortedPosts:", sortedPosts);
+  }, [searchQuery, sortedPosts]
+)
+
+
 
   const createPost = (newPost) => setPosts([...posts, newPost]);
 
@@ -64,10 +73,10 @@ function App() {
         />
       </div>
 
-      {posts.length !== 0 ? (
+      {sortedAndSearcedPosts.length !== 0 ? (
         <PostList
           remove={removePost}
-          posts={sortedPosts}
+          posts={sortedAndSearcedPosts}
           title="Посты про JS"
         />
       ) : (
