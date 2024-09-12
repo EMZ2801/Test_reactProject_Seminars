@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import Counter from "./components/counter";
 import ClassCounter from "./components/ClassCounter";
 import "./styles/App.css";
@@ -12,12 +12,19 @@ import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UI/MyModal/MyModal";
 import { usePosts } from "./hooks/usePosts";
 import axios from "axios";
+import PostService from "./API/PostService";
+import Loader from "./components/UI/Loader/Loader";
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const [modal, setModal] = useState(false);
   const sortedAndSearcedPosts = usePosts(posts, filter.sort, filter.query);
+  const [isPostLoading, setIsPostsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -25,10 +32,12 @@ function App() {
   };
 
   async function fetchPosts() {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
-    setPosts(response.data);
+    setIsPostsLoading(true);
+    setTimeout(async () => {
+      const posts = await PostService.getAll();
+      setPosts(posts);
+      setIsPostsLoading(false);
+    }, 1000);
   }
 
   //получаем post из дочернего компонента
@@ -49,11 +58,20 @@ function App() {
       <hr style={{ margin: "15px 0" }} />
       <PostFilter filter={filter} setFilter={setFilter} />
 
-      <PostList
-        remove={removePost}
-        posts={sortedAndSearcedPosts}
-        title="Посты про JS"
-      />
+      {isPostLoading ? (
+        <div
+          style={{ display: "flex", justifyContent: "center", marginTop: 50 }}
+        >
+          {" "}
+          <Loader />{" "}
+        </div>
+      ) : (
+        <PostList
+          remove={removePost}
+          posts={sortedAndSearcedPosts}
+          title="Посты про JS"
+        />
+      )}
     </div>
   );
 }
