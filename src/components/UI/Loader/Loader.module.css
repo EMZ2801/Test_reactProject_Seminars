@@ -3,7 +3,7 @@
     height: 100px;
     border-radius: 50%;
     border: 3px dashed teal;
-    animation: rotate 1.5s infinite linear;
+    animation: rotate 2s infinite linear;
 }
 
 @keyframes rotate {
