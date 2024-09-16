@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class PostService {
-  static async getAll(limit: number = 10, page: number = 2) {
+  static async getAll(limit = 10, page = 2) {
     const response = await axios.get(
       "https://jsonplaceholder.typicode.com/posts",
       {

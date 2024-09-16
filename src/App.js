@@ -25,6 +25,7 @@ function App() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const sortedAndSearcedPosts = usePosts(posts, filter.sort, filter.query);
+
   let pagesArray = getPagesArray(totalPages);
 
   const [fetchPosts, isPostLoading, postError] = useFetching(async () => {
@@ -38,7 +39,7 @@ function App() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -48,6 +49,10 @@ function App() {
   //получаем post из дочернего компонента
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
+  };
+
+  const changePage = (page) => {
+    setPage(page);
   };
 
   return (
@@ -81,7 +86,7 @@ function App() {
       <div className="page__wrapper">
         {pagesArray.map((p) => (
           <span
-            onClick={() => setPage(p)}
+            onClick={() => changePage(p)}
             key={p}
             className={page === p ? "page page__current" : "page"}
           >
