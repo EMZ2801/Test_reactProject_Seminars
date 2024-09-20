@@ -3,6 +3,7 @@ import "./styles/App.css";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
 import About from "./pages/About";
 import Posts from "./pages/Posts";
+import Error from "./pages/Error";
 import Navbar from "./components/UI/Navbar/Navbar";
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/posts" element={<Posts />} />
-        <Route path="*" element={<Navigate to="/posts" />} />
+        <Route path="/error" element={<Error />} />
+        <Route path="*" element={<Navigate to="/error" />} />
       </Routes>
     </BrowserRouter>
   );
