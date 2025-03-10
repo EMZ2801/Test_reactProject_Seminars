@@ -1,9 +1,6 @@
 import React from "react";
 import "./styles/App.css";
 import { BrowserRouter, Routes, Route, Link, Navigate } from "react-router-dom";
-import About from "./pages/About";
-import Posts from "./pages/Posts";
-import Error from "./pages/Error";
 import Navbar from "./components/UI/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
 
