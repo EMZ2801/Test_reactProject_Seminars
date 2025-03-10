@@ -8,14 +8,16 @@ const PostItem = (props) => {
         <div className="post">
         <div className="post__content">
           <strong> {props.post.id}. {props.post.title} </strong>
-          <div>{props.post.body}</div>
+          <div>{props.post.description}</div>
+          <div>Дата семинара: {props.post.date}</div>
+          <div>Время начала семинара: {props.post.time}</div>
         </div>
         <div className="post__btns">
         <MyButton 
           
-          onClick={() => navigate(`/posts/${props.post.id}`)}>       открыть пост
+          onClick={() => navigate(`/posts/${props.post.id}`)}>  Подробнее о семинаре
         </MyButton>
-          <MyButton onClick={() => props.remove(props.post)}> Удалить пост
+          <MyButton onClick={() => props.remove(props.post)}> Удалить семинар
           </MyButton>
         </div>
       </div>

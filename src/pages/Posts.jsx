@@ -49,15 +49,14 @@ function Posts () {
 
   return (
     <div className="App">
-      <button onClick={fetchPosts}> GET POSTS</button>
       <MyButton style={{ marginTop: 30 }} onClick={() => setModal(true)}>
-        Создать пользователя
+        Добавить новый семинар
       </MyButton>
       <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
       </MyModal>
 
-      <hr style={{ margin: "15px 0" }} />
+      <hr style={{ margin: "20px 0" }} />
       <PostFilter filter={filter} setFilter={setFilter} />
 
       {postError && <h1> Произошла ошибка ${postError}</h1>}
@@ -72,7 +71,7 @@ function Posts () {
         <PostList
           remove={removePost}
           posts={sortedAndSearcedPosts}
-          title="Посты про JS"
+          title="Список семинаров"
         />
       )}
       <Pagination page={page} changePage={changePage} totalPages={totalPages} />

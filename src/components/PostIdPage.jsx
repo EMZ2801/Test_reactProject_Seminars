@@ -14,36 +14,32 @@ const PostIdPage = () => {
     });
 
     const[fetchComments, isComLoading, comError] = useFetching (async(id) => {
-        const response = await PostService.getCommentsByPostId(id)
+        const response = await PostService.getCommentsByPostId(id);
+        console.log("Ответ от сервера:", response.data); 
         setComments(response.data)
     });
 
     useEffect(() => { 
         fetchPostById(params.id)
         fetchComments (params.id)
-    }, [])
+    }, [params.id])
 
     return (
         <div>
-            <h1> вы открыли страницу поста c ID = {params.id} </h1>
+            <h1> вы открыли страницу семинара c ID = {params.id} </h1>
             {isLoading
             ? <Loader/>
-            : <div>{post.id}. {post.title}
-            </div>
+            : <h2> Название: {post.title} </h2> 
             }
-            <h1> 
-               Комментарии
-            </h1>
+            <h2> 
+               Подробнее о семинаре:
+            </h2>
             {isComLoading
                 ?<Loader/>
-                : <div>
-                    {comments.map(comm =>
-                        <div style={{marginTop: 15}}>
-                            <h5>{comm.body} </h5>
-                            <div> {comm.body} </div>
-                        </div>
-
-                    )}
+                : <div>                    
+                    <h2>{post.description}</h2>
+                    <h3>Дата семинара: {post.date} </h3>
+                    <p> Время начала семинара:{post.time} </p>
                 </div>
                }    
         </div>

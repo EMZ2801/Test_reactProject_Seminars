@@ -5,7 +5,7 @@ import MyInput from './UI/input/MyInput';
 
 const PostForm = ({create}) => {
 
-    const [post, setPost] = useState ({title:"", body:""});
+    const [post, setPost] = useState ({title:"", description:""});
 
     const addNewPost = (e) => {
         e.preventDefault();
@@ -13,27 +13,38 @@ const PostForm = ({create}) => {
             ...post, id: Date.now()
         }
         create (newPost)
-        setPost ({title:"", body:""});
+        setPost ({title:"", description:""});
       }
 
   return (
    
         <form>
-        {/*управляемый компонент*/}
           <MyInput 
           value={post.title}
           onChange={e => setPost({...post, title: e.target.value})}
           type='text'
-          placeholder="Название поста"/>
+          placeholder="Название семинара"/>
 
-          {/* управляемый компонент */}
           <MyInput 
-          value={post.body}
-          onChange={e => setPost({...post, body: e.target.value})}
+          value={post.description}
+          onChange={e => setPost({...post, description: e.target.value})}
           type='text'
-          placeholder="Описание поста" />
+          placeholder="Описание семинара" />
 
-          <MyButton onClick={addNewPost}> Создать пост </MyButton>
+          <MyInput 
+          value={post.date}
+          onChange={e => setPost({...post, description: e.target.value})}
+          type='text'
+          placeholder="Дата проведения семинара" />
+
+            <MyInput 
+          value={post.time}
+          onChange={e => setPost({...post, description: e.target.value})}
+          type='text'
+          placeholder="Время начала семинара" />
+
+
+          <MyButton onClick={addNewPost}> Добавить </MyButton>
       </form>
       
   )
