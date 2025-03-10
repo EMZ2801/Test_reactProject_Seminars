@@ -39,7 +39,7 @@ const PostIdPage = () => {
                 : <div>                    
                     <h2>{post.description}</h2>
                     <h3>Дата семинара: {post.date} </h3>
-                    <p> Время начала семинара:{post.time} </p>
+                    <p> Время начала семинара: {post.time} </p>
                 </div>
                }    
         </div>
