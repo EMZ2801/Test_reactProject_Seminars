@@ -1,0 +1,46 @@
+/* Стили для модального окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* т.о. настроиваем кно поверх всего */
+  }
+  
+  .modal__content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal__content h2 {
+    margin-bottom: 20px;
+  }
+  
+  .modal__content label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .modal__content input,
+  .modal__content textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .modal__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  

@@ -23,4 +23,32 @@ export default class PostService {
     const response = await axios.get(`http://localhost:5000/seminars/${id}/comments`);
       return response;
     }
+
+       // Метод для удаления семинара
+  static async deleteSeminar(id) {
+    try {
+      const response = await axios.delete(`http://localhost:5000/seminars/${id}`);
+      return response;
+    } catch (error) {
+      console.error("Ошибка при удалении семинара", error);
+      throw error; // Бросаем ошибку для дальнейшей обработки в компоненте
+    }
+  }
+
+
+  // Метод для обновления семинара
+  static async updateSeminar(id, updatedData) {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/seminars/${id}`,
+        updatedData
+      );
+      return response;
+    } catch (error) {
+      console.error("Ошибка при обновлении семинара", error);
+      throw error; // Бросаем ошибку для дальнейшей обработки
+    }
+  }
+
+
   }
